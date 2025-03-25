@@ -3,12 +3,12 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { CaesarFormSchema, TCaesarFromState } from '@/features/ciphers/model/schema';
-import { Button } from '@/shared/ui/button';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/shared/ui/form';
-import { Input } from '@/shared/ui/input';
-import { Textarea } from '@/shared/ui/textarea';
 import { CopyButton } from '@/shared/ui/copy-button';
+import { CyberTextarea } from '@/features/ciphers/ui/cyber-textarea';
+import { CyberButton } from '@/features/ciphers/ui/cyber-button';
+import CyberInput from '@/features/ciphers/ui/cyber-input';
 
 export const CaesarForm = () => {
   const [result, setResult] = useState<string>('');
@@ -43,7 +43,7 @@ export const CaesarForm = () => {
               <FormItem>
                 <FormLabel>Input Text</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter your text here..." {...field} />
+                  <CyberTextarea placeholder="Enter your text here..." {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -56,7 +56,7 @@ export const CaesarForm = () => {
               <FormItem>
                 <FormLabel>Shift</FormLabel>
                 <FormControl>
-                  <Input type="number" placeholder="Enter shift..." {...field} />
+                  <CyberInput type="number" placeholder="Enter shift..." {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -69,39 +69,39 @@ export const CaesarForm = () => {
               <FormItem>
                 <FormLabel>Alphabet</FormLabel>
                 <FormControl>
-                  <Input placeholder="Caesar cipher will be using this alphabet" {...field} />
+                  <CyberInput placeholder="Caesar cipher will be using this alphabet" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <div className="flex items-center gap-2">
-            <Button
+          <div className="flex w-full justify-center items-center gap-2">
+            <CyberButton
               onClick={() => handleActionSubmit('encode')}
               type="submit"
               name="action"
               value="encode"
             >
               Encode
-            </Button>
-            <Button>Swap</Button>
-            <Button
+            </CyberButton>
+            <CyberButton>Swap</CyberButton>
+            <CyberButton
               onClick={() => handleActionSubmit('decode')}
               type="submit"
               name="action"
               value="decode"
             >
               Decode
-            </Button>
+            </CyberButton>
           </div>
         </form>
       </Form>
       <div className="relative">
-        <Textarea
+        <CyberTextarea
           value={result}
           className="resize-none min-h-32"
-          disabled
-          placeholder="Your result will apear here..."
+          readOnly
+          placeholder="Your result will appear here..."
         />
         <CopyButton className="absolute top-1 right-1" value={result} />
       </div>

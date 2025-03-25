@@ -15,8 +15,8 @@ export default function Home() {
         techniques.
       </p>
       <Link
-        className="py-2 px-6 text-lg bg-primary text-secondary rounded-lg hover:bg-primary/80 transition duration-300"
-        href={'/ciphers'}
+        className="py-2 cyber-button px-6 text-lg bg-primary text-secondary rounded-lg hover:bg-primary/80 transition duration-300"
+        href="/ciphers"
       >
         Let's start!
       </Link>

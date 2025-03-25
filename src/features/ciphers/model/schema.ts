@@ -1,4 +1,5 @@
 import { CIPHERS } from '@/shared/constants';
+import { ReactNode } from 'react';
 import { z } from 'zod';
 
 export const CaesarFormSchema = z.object({
@@ -19,4 +20,4 @@ export type TCaesarFromState = z.infer<typeof CaesarFormSchema>;
 
 export type TCipherIds = (typeof CIPHERS)[number]['id'];
 
-export type TCipher = { id: TCipherIds; name: string; description: string };
+export type TCipher = { id: TCipherIds; icon: ReactNode; name: string; description: string };
