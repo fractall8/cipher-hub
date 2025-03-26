@@ -18,6 +18,9 @@ export function bacon({
   if (letter1.length !== 1 || letter2.length !== 1) {
     throw new Error('Invalid input: letters must be 1 char long.');
   }
+  if (letter1 === letter2) {
+    throw new Error('Invalid input: letters must be different from each other.');
+  }
 
   let result = '';
   const alphabet = 'abcdefghijklmnopqrstuvwxyz';
@@ -39,21 +42,28 @@ export function bacon({
       result += fragment + ' ';
     }
   } else if (action === 'decode') {
-    const fragments = text.split(' ').filter((fragment) => fragment.length === 5);
+    text = text
+      .split('')
+      .filter((char) => char === letter1 || char === letter2)
+      .join('');
 
-    for (const fragment of fragments) {
-      let binary = '';
-      for (const char of fragment) {
-        if (char === letter1) {
-          binary += '0';
-        } else if (char === letter2) {
-          binary += '1';
-        }
+    let binary = '';
+
+    for (let i = 0; i < text.length; i++) {
+      const char = text[i];
+
+      if (char === letter1) {
+        binary += '0';
+      } else if (char === letter2) {
+        binary += '1';
       }
 
-      const charIndex = parseInt(binary, 2);
+      if ((i + 1) % 5 === 0) {
+        const charIndex = parseInt(binary, 2);
+        binary = '';
 
-      result += alphabet[charIndex];
+        result += alphabet[charIndex];
+      }
     }
   }
   return result.trim();
