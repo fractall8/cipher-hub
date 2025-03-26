@@ -2,30 +2,30 @@
 
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { CaesarFormSchema, TCaesarFromState } from '@/features/ciphers/model/schema';
+import { TVigenereFormState, VigenereFormSchema } from '@/features/ciphers/model/schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/shared/ui/form';
 import { CopyButton } from '@/shared/ui/copy-button';
 import { CyberTextarea } from '@/features/ciphers/ui/cyber-textarea';
 import { CyberButton } from '@/features/ciphers/ui/cyber-button';
 import CyberInput from '@/features/ciphers/ui/cyber-input';
-import { caesar } from '@/features/ciphers/lib';
+import { vigenere } from '../lib';
 
-export const CaesarForm = () => {
+export const VigenereForm = () => {
   const [result, setResult] = useState<string>('');
-  const form = useForm<TCaesarFromState>({
-    resolver: zodResolver(CaesarFormSchema),
+  const form = useForm<TVigenereFormState>({
+    resolver: zodResolver(VigenereFormSchema),
     defaultValues: {
       text: '',
-      shift: '7',
+      key: 'cipherhub',
       alphabet: 'abcdefghijklmnopqrstuvwxyz',
       action: 'encode',
     },
     mode: 'onChange',
   });
 
-  function onSubmit(formData: TCaesarFromState) {
-    setResult(caesar({ ...formData, shift: parseInt(formData.shift) }));
+  function onSubmit(formData: TVigenereFormState) {
+    setResult(vigenere(formData));
   }
 
   function handleActionSubmit(actionType: 'encode' | 'decode') {
@@ -52,12 +52,12 @@ export const CaesarForm = () => {
           />
           <FormField
             control={form.control}
-            name="shift"
+            name="key"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Shift</FormLabel>
+                <FormLabel>Key</FormLabel>
                 <FormControl>
-                  <CyberInput type="number" placeholder="Enter shift..." {...field} />
+                  <CyberInput type="text" placeholder="Enter key..." {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

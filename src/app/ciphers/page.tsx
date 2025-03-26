@@ -4,6 +4,7 @@ import { useCiphersStore } from '@/features/ciphers/model/provider';
 import { TCipherIds } from '@/features/ciphers/model/schema';
 import { CaesarForm } from '@/features/ciphers/ui/caesar-form';
 import { SelectCipher } from '@/features/ciphers/ui/select-cipher';
+import { VigenereForm } from '@/features/ciphers/ui/vigenere-form';
 import { Shield, Terminal } from 'lucide-react';
 
 export default function Page() {
@@ -14,7 +15,7 @@ export default function Page() {
       case 'caesar':
         return <CaesarForm />;
       case 'vigenere':
-        return <div>Vigenere Form</div>;
+        return <VigenereForm />;
       default:
         return <div />;
     }
@@ -22,7 +23,18 @@ export default function Page() {
 
   return (
     <div className="container">
-      <div className="mt-24 grid md:grid-cols-2 gap-8">
+      <div className="flex flex-col my-6 gap-2 items-center justify-center w-full">
+        {selectedCipher ? (
+          <>
+            <h2 className="text-3xl font-bold text-primary">{selectedCipher.name}</h2>
+            <p className="text-accent text-center max-w-3xl">{selectedCipher.about}</p>
+          </>
+        ) : (
+          <h2 className="text-3xl font-bold text-primary">Select any cipher and try to use it!</h2>
+        )}
+      </div>
+
+      <div className="grid md:grid-cols-2 gap-8">
         <div className="cyber-border cyber-background neon-glow bg-secondary/50 p-6">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-4">
@@ -59,7 +71,7 @@ export default function Page() {
             <h2 className="text-2xl font-semibold">Operation Console</h2>
           </div>
 
-          {renderCipherForm(selectedCipher.id)}
+          {selectedCipher && renderCipherForm(selectedCipher.id)}
         </div>
       </div>
     </div>

@@ -25,7 +25,7 @@ export function CopyButton({ value, className, variant = 'ghost', ...props }: Co
       size="icon"
       variant={variant}
       className={cn(
-        'relative z-10 h-8 w-8 text-primary hover:primary/60 hover:text-primary',
+        'relative z-10 h-8 w-8 text-primary hover:bg-primary/80 hover:text-white',
         className,
       )}
       onClick={() => {
