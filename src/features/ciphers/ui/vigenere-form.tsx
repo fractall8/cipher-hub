@@ -9,7 +9,7 @@ import { CopyButton } from '@/shared/ui/copy-button';
 import { CyberTextarea } from '@/features/ciphers/ui/cyber-textarea';
 import { CyberButton } from '@/features/ciphers/ui/cyber-button';
 import CyberInput from '@/features/ciphers/ui/cyber-input';
-import { vigenere } from '../lib';
+import { vigenere } from '@/features/ciphers/lib';
 
 export const VigenereForm = () => {
   const [result, setResult] = useState<string>('');
