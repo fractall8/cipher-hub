@@ -1,11 +1,12 @@
 'use client';
 
+import { Shield, Terminal } from 'lucide-react';
 import { useCiphersStore } from '@/features/ciphers/model/provider';
 import { TCipherIds } from '@/features/ciphers/model/schema';
+import { BaconForm } from '@/features/ciphers/ui/bacon-form';
 import { CaesarForm } from '@/features/ciphers/ui/caesar-form';
 import { SelectCipher } from '@/features/ciphers/ui/select-cipher';
 import { VigenereForm } from '@/features/ciphers/ui/vigenere-form';
-import { Shield, Terminal } from 'lucide-react';
 
 export default function Page() {
   const { selectedCipher } = useCiphersStore((state) => state);
@@ -16,6 +17,8 @@ export default function Page() {
         return <CaesarForm />;
       case 'vigenere':
         return <VigenereForm />;
+      case 'bacon':
+        return <BaconForm />;
       default:
         return <div />;
     }

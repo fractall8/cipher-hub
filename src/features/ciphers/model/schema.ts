@@ -48,6 +48,31 @@ export const VigenereFormSchema = z
 
 export type TVigenereFormState = z.infer<typeof VigenereFormSchema>;
 
+export const BaconFormScheme = z
+  .object({
+    text: z.string().min(1, { message: 'Text must be at least 1 char long' }),
+    letter1: z
+      .string()
+      .min(1, { message: 'Letter must be 1 char long' })
+      .max(1, { message: 'Letter must be 1 char long' }),
+    letter2: z
+      .string()
+      .min(1, { message: 'Letter must be 1 char long' })
+      .max(1, { message: 'Letter must be 1 char long' }),
+    action: z.enum(['encode', 'decode']),
+  })
+  .superRefine((data, ctx) => {
+    if (data.letter1 === data.letter2) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ['letter1', 'letter2'],
+        message: 'The letters must be different from each other.',
+      });
+    }
+  });
+
+export type TBaconFormState = z.infer<typeof BaconFormScheme>;
+
 export type TCipherIds = (typeof CIPHERS)[number]['id'];
 
 export type TCipher = {
