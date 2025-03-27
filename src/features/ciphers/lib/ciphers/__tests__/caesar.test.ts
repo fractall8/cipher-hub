@@ -18,6 +18,15 @@ describe('Caesar Cipher', () => {
 
     expect(
       caesar({
+        text: 'Use memo Rpb jbjl',
+        shift: -3,
+        alphabet: 'abcdefghijklmnopqrstuvwxyz',
+        action: 'encode',
+      }),
+    ).toBe('Rpb jbjl Omy gygi');
+
+    expect(
+      caesar({
         text: 'Привіт світ!',
         shift: 5,
         alphabet: 'абвгдеєжзиїклмнопрстуфхцчшщьюя',
@@ -42,6 +51,15 @@ describe('Caesar Cipher', () => {
 
     expect(
       caesar({
+        text: 'Axeeh vbiaxkanu',
+        shift: -7,
+        alphabet: 'abcdefghijklmnopqrstuvwxyz',
+        action: 'decode',
+      }),
+    ).toBe('Hello cipherhub');
+
+    expect(
+      caesar({
         text: 'Фхнжіч цжіч!',
         shift: 5,
         alphabet: 'абвгдеєжзиїклмнопрстуфхцчшщьюя',
@@ -53,21 +71,12 @@ describe('Caesar Cipher', () => {
   it('edge cases: should throw error if text or alphabet is empty', () => {
     expect(() =>
       caesar({
-        text: '     ',
+        text: 'Hello!',
         shift: 12,
-        alphabet: 'abcdefghijklmnopqrstuvwxyz',
-        action: 'decode',
-      }),
-    ).toThrow('Invalid input: text and alphabet must be non-empty.');
-
-    expect(() =>
-      caesar({
-        text: '   ',
-        shift: 12,
-        alphabet: 'abcdefghijklmnopqrstuvwxyz',
+        alphabet: '    ',
         action: 'encode',
       }),
-    ).toThrow('Invalid input: text and alphabet must be non-empty.');
+    ).toThrow('Invalid input: alphabet must be non-empty.');
 
     expect(() =>
       caesar({
@@ -76,7 +85,7 @@ describe('Caesar Cipher', () => {
         alphabet: '',
         action: 'encode',
       }),
-    ).toThrow('Invalid input: text and alphabet must be non-empty.');
+    ).toThrow('Invalid input: alphabet must be non-empty.');
   });
 
   it('edge cases: should throw error if arguments with invalid types provided.', () => {

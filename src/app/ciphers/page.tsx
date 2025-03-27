@@ -26,14 +26,20 @@ export default function Page() {
 
   return (
     <div className="container">
-      <div className="flex flex-col my-6 gap-2 items-center justify-center w-full">
+      <div className="flex flex-col my-6 gap-4 items-center justify-center w-full">
         {selectedCipher ? (
           <>
-            <h2 className="text-3xl font-bold text-primary">{selectedCipher.name}</h2>
-            <p className="text-accent text-center max-w-3xl">{selectedCipher.about}</p>
+            <h2 className="text-5xl font-bold tracking-tighter text-primary">
+              {selectedCipher.name}
+            </h2>
+            <p className="text-xl text-foreground/80 max-w-2xl text-center">
+              {selectedCipher.about}
+            </p>
           </>
         ) : (
-          <h2 className="text-3xl font-bold text-primary">Select any cipher and try to use it!</h2>
+          <h2 className="text-5xl font-bold tracking-tighter text-primary">
+            Select any cipher and try to use it!
+          </h2>
         )}
       </div>
 

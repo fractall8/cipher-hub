@@ -12,8 +12,8 @@ export function caesar({
   if (typeof text !== 'string' || typeof alphabet !== 'string' || typeof shift !== 'number') {
     throw new Error('Invalid input: text and alphabet must be strings, shift must be a number.');
   }
-  if (!text.trim() || !alphabet.trim()) {
-    throw new Error('Invalid input: text and alphabet must be non-empty.');
+  if (!alphabet.trim()) {
+    throw new Error('Invalid input: alphabet must be non-empty.');
   }
 
   let result = '';
@@ -37,7 +37,7 @@ export function caesar({
 
     const newIndex =
       action == 'encode'
-        ? (charIndex + shift) % alphabetLength
+        ? (charIndex + shift + alphabetLength) % alphabetLength
         : (charIndex - shift + alphabetLength) % alphabetLength;
 
     result += isUpperCase ? alphabet[newIndex].toUpperCase() : alphabet[newIndex];

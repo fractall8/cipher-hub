@@ -60,6 +60,7 @@ export function bacon({
 
       if ((i + 1) % 5 === 0) {
         const charIndex = parseInt(binary, 2);
+        if (charIndex > alphabet.length || charIndex < 0) continue;
         binary = '';
 
         result += alphabet[charIndex];

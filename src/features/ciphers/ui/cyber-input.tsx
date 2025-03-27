@@ -1,7 +1,7 @@
 import React from 'react';
 import { cn } from '@/shared/lib/utils';
 
-const CyberInput = ({ className, ...props }: React.ComponentProps<'input'>) => {
+export const CyberInput = ({ className, ...props }: React.ComponentProps<'input'>) => {
   return (
     <input
       className={cn([
@@ -12,5 +12,3 @@ const CyberInput = ({ className, ...props }: React.ComponentProps<'input'>) => {
     />
   );
 };
-
-export default CyberInput;

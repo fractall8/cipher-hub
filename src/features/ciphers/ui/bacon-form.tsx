@@ -1,18 +1,22 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { BaconFormScheme, TBaconFormState } from '@/features/ciphers/model/schema';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Lock, Unlock } from 'lucide-react';
+import { CyberTextarea } from '@/features/ciphers/ui/cyber-textarea';
+import { CyberInput } from '@/features/ciphers/ui/cyber-input';
+import { bacon } from '@/features/ciphers/lib';
+import { debounce } from '@/features/ciphers/lib/helpers';
+import { BaconFormScheme, TBaconFormState } from '@/features/ciphers/model/schema';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/shared/ui/form';
 import { CopyButton } from '@/shared/ui/copy-button';
-import { CyberTextarea } from '@/features/ciphers/ui/cyber-textarea';
-import { CyberButton } from '@/features/ciphers/ui/cyber-button';
-import CyberInput from '@/features/ciphers/ui/cyber-input';
-import { bacon } from '@/features/ciphers/lib';
+import { TabsList, TabsTrigger, Tabs } from '@/shared/ui/tabs';
 
 export const BaconForm = () => {
   const [result, setResult] = useState<string>('');
+  const [activeTab, setActiveTab] = useState<'encode' | 'decode'>('encode');
+
   const form = useForm<TBaconFormState>({
     resolver: zodResolver(BaconFormScheme),
     defaultValues: {
@@ -28,13 +32,47 @@ export const BaconForm = () => {
     setResult(bacon(formData));
   }
 
-  function handleActionSubmit(actionType: 'encode' | 'decode') {
-    form.setValue('action', actionType);
-    form.handleSubmit(onSubmit);
-  }
+  const handleDebouncedActionSubmit = useMemo(
+    () =>
+      debounce(() => {
+        form.handleSubmit(onSubmit)();
+      }, 500),
+    [form],
+  );
 
   return (
     <div className="flex flex-col gap-4">
+      <Tabs
+        value={activeTab}
+        onValueChange={(value) => {
+          const text = form.getValues().text;
+          const actionResult = result;
+
+          form.setValue('text', actionResult);
+          setResult(text);
+
+          setActiveTab(value as 'encode' | 'decode');
+          form.setValue('action', value as 'encode' | 'decode');
+        }}
+        className="space-y-6"
+      >
+        <TabsList className="cyber-border w-full bg-background/40">
+          <TabsTrigger
+            value="encode"
+            className="flex-1 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+          >
+            <Lock className="w-4 h-4 mr-2" />
+            Encode
+          </TabsTrigger>
+          <TabsTrigger
+            value="decode"
+            className="flex-1 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+          >
+            <Unlock className="w-4 h-4 mr-2" />
+            Decode
+          </TabsTrigger>
+        </TabsList>
+      </Tabs>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <FormField
@@ -44,7 +82,14 @@ export const BaconForm = () => {
               <FormItem>
                 <FormLabel>Input Text</FormLabel>
                 <FormControl>
-                  <CyberTextarea placeholder="Enter your text here..." {...field} />
+                  <CyberTextarea
+                    {...field}
+                    onChange={(e) => {
+                      field.onChange(e);
+                      handleDebouncedActionSubmit();
+                    }}
+                    placeholder="Enter your text here..."
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -58,7 +103,14 @@ export const BaconForm = () => {
                 <FormItem>
                   <FormLabel>Letter 1</FormLabel>
                   <FormControl>
-                    <CyberInput placeholder="letter 1" {...field} />
+                    <CyberInput
+                      {...field}
+                      onChange={(e) => {
+                        field.onChange(e);
+                        handleDebouncedActionSubmit();
+                      }}
+                      placeholder="letter 1"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -71,40 +123,19 @@ export const BaconForm = () => {
                 <FormItem>
                   <FormLabel>Letter 2</FormLabel>
                   <FormControl>
-                    <CyberInput placeholder="letter 2" {...field} />
+                    <CyberInput
+                      {...field}
+                      onChange={(e) => {
+                        field.onChange(e);
+                        handleDebouncedActionSubmit();
+                      }}
+                      placeholder="letter 2"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-          </div>
-          <div className="flex w-full justify-center items-center gap-2">
-            <CyberButton
-              onClick={() => handleActionSubmit('encode')}
-              type="submit"
-              name="action"
-              value="encode"
-            >
-              Encode
-            </CyberButton>
-            <CyberButton
-              onClick={() => {
-                const text = form.getValues('text');
-                const actionResult = result;
-                setResult(text);
-                form.setValue('text', actionResult);
-              }}
-            >
-              Swap
-            </CyberButton>
-            <CyberButton
-              onClick={() => handleActionSubmit('decode')}
-              type="submit"
-              name="action"
-              value="decode"
-            >
-              Decode
-            </CyberButton>
           </div>
         </form>
       </Form>

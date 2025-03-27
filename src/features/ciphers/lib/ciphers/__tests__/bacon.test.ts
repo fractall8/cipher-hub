@@ -41,6 +41,13 @@ describe('Bacon Cipher', () => {
         action: 'decode',
         result: 'thequickbrownfoxjumpsoverthelazydog',
       },
+      {
+        text: 'aabbb aabaa ababa ababa abbab',
+        letter1: 'x',
+        letter2: 'b',
+        action: 'decode',
+        result: '',
+      },
     ];
 
     testData.forEach(({ result, action, ...baconData }) => {

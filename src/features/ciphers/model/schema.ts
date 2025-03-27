@@ -3,10 +3,11 @@ import { ReactNode } from 'react';
 import { z } from 'zod';
 
 export const CaesarFormSchema = z.object({
-  text: z.string().min(1, { message: 'Text must be at least 1 char long' }),
+  text: z.string(),
   shift: z
-    .string()
-    .refine((value) => !isNaN(parseInt(value)), { message: 'Shift must be a number!' }),
+    .number()
+    .int()
+    .refine((val) => val !== 0, { message: 'Shift must not be 0' }),
   alphabet: z
     .string()
     .min(2, { message: 'Alphabet must be at least 2 chars long.' })
