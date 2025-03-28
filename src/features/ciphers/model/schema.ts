@@ -17,11 +17,9 @@ export const CaesarFormSchema = z.object({
   action: z.enum(['encode', 'decode']),
 });
 
-export type TCaesarFromState = z.infer<typeof CaesarFormSchema>;
-
 export const VigenereFormSchema = z
   .object({
-    text: z.string().min(1, { message: 'Text must be at least 1 char long' }),
+    text: z.string(),
     key: z.string().min(2, { message: 'Key must be at least 2 chars long.' }),
     alphabet: z
       .string()
@@ -47,11 +45,9 @@ export const VigenereFormSchema = z
     }
   });
 
-export type TVigenereFormState = z.infer<typeof VigenereFormSchema>;
-
 export const BaconFormScheme = z
   .object({
-    text: z.string().min(1, { message: 'Text must be at least 1 char long' }),
+    text: z.string(),
     letter1: z
       .string()
       .min(1, { message: 'Letter must be 1 char long' })
@@ -72,7 +68,10 @@ export const BaconFormScheme = z
     }
   });
 
-export type TBaconFormState = z.infer<typeof BaconFormScheme>;
+export const Base64FormScheme = z.object({
+  text: z.string(),
+  action: z.enum(['encode', 'decode']),
+});
 
 export type TCipherIds = (typeof CIPHERS)[number]['id'];
 

@@ -5,6 +5,7 @@ import { useCiphersStore } from '@/features/ciphers/model/provider';
 import { CaesarForm, VigenereForm, BaconForm } from '@/features/ciphers';
 import { TCipherIds } from '@/features/ciphers/model/schema';
 import { SelectCipher } from '@/features/ciphers';
+import { Base64Form } from '@/features/ciphers/ui/base64-form';
 
 export default function Page() {
   const { selectedCipher } = useCiphersStore((state) => state);
@@ -17,6 +18,8 @@ export default function Page() {
         return <VigenereForm />;
       case 'bacon':
         return <BaconForm />;
+      case 'base64':
+        return <Base64Form />;
       default:
         return <div />;
     }
