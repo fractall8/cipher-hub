@@ -28,8 +28,16 @@ export function useCipherForm({
   });
 
   const onSubmit = useCallback(
-    (formData: TFormState) => setResult(processFunction(formData)),
-    [processFunction],
+    (formData: TFormState) => {
+      try {
+        setResult(processFunction(formData));
+      } catch (error) {
+        if (error instanceof Error) {
+          form.setError('text', { type: 'manual', message: error.message });
+        }
+      }
+    },
+    [processFunction, form],
   );
 
   const handleDebouncedActionSubmit = useMemo(

@@ -17,6 +17,20 @@ function encodeBase64(text: string) {
 }
 
 function decodeBase64(base64: string) {
+  if (!base64) {
+    return '';
+  }
+
+  const isValidBase64 = (str: string) => /^[A-Za-z0-9+/]+={0,2}$/.test(str);
+
+  if (!isValidBase64(base64)) {
+    throw new Error('Invalid input: invalid base64.');
+  }
+
+  if (base64.length % 4 !== 0) {
+    throw new Error('Invalid input: invalid base64 length.');
+  }
+
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
   const result: number[] = [];
   let buffer = 0,
@@ -31,7 +45,21 @@ function decodeBase64(base64: string) {
     }
   }
 
-  return new TextDecoder().decode(new Uint8Array(result));
+  let decodedBinary;
+
+  try {
+    decodedBinary = atob(base64);
+  } catch {
+    throw new Error('Invalid input: failed to decode base64.');
+  }
+
+  const byteArray = new Uint8Array([...decodedBinary].map((c) => c.charCodeAt(0)));
+
+  try {
+    return new TextDecoder('utf-8', { fatal: true }).decode(byteArray);
+  } catch {
+    throw new Error('Invalid input: decoded data is not valid UTF-8 text.');
+  }
 }
 
 export function base64({ text, action }: { text: string; action: 'encode' | 'decode' }) {
