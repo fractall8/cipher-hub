@@ -2,12 +2,11 @@
 
 import { Shield, Terminal } from 'lucide-react';
 import { useCiphersStore } from '@/features/ciphers/model/provider';
-import { CaesarForm, VigenereForm, BaconForm } from '@/features/ciphers';
+import { CaesarForm, VigenereForm, BaconForm, Base64Form, Base32Form } from '@/features/ciphers';
 import { TCipherIds } from '@/features/ciphers/model/schema';
 import { SelectCipher } from '@/features/ciphers';
-import { Base64Form } from '@/features/ciphers/ui/base64-form';
 
-export default function Page() {
+export default function CiphersPage() {
   const { selectedCipher } = useCiphersStore((state) => state);
 
   function renderCipherForm(id: TCipherIds) {
@@ -20,6 +19,8 @@ export default function Page() {
         return <BaconForm />;
       case 'base64':
         return <Base64Form />;
+      case 'base32':
+        return <Base32Form />;
       default:
         return <div />;
     }

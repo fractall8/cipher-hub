@@ -33,4 +33,12 @@ export const CIPHERS = [
     about:
       'Encodes binary data into ASCII characters. Commonly used for sending binary data through text-based systems.',
   },
+  {
+    id: 'base32',
+    name: 'Base32',
+    icon: <Binary className="w-6 h-6" />,
+    description: 'Base32 encoding',
+    about:
+      'Encodes binary data into a set of 32 printable characters. Typically used in applications where case insensitivity is important, such as QR codes or authentication systems.',
+  },
 ] as const;

@@ -68,7 +68,8 @@ export const BaconFormScheme = z
     }
   });
 
-export const Base64FormScheme = z.object({
+// same scheme for base64 and base32
+export const BaseFormScheme = z.object({
   text: z.string(),
   action: z.enum(['encode', 'decode']),
 });
