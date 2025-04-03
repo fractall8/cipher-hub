@@ -8,3 +8,7 @@ export function debounce<T extends (...args: never[]) => void>(
     timerId = setTimeout(() => func(...args), ms);
   };
 }
+
+export function merge<T extends Record<string, unknown>>(...objects: T[]) {
+  return Object.assign({}, ...objects);
+}

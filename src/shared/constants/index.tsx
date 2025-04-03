@@ -1,5 +1,7 @@
 import { Key, Keyboard, FileText, Binary } from 'lucide-react';
 
+export const CLIENT_URL = process.env.NEXT_PUBLIC_CLIENT_URL;
+
 export const CIPHERS = [
   {
     id: 'caesar',

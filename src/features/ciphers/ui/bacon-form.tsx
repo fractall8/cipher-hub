@@ -3,16 +3,33 @@
 import { CipherForm } from '@/features/ciphers/ui/cipher-form';
 import { useCipherForm } from '@/features/ciphers/lib/hooks/useCipherForm';
 import { bacon } from '@/features/ciphers/lib';
-import { BaconFormScheme } from '@/features/ciphers/model/schema';
+import { BaconFormScheme, TBaconFormState } from '@/features/ciphers/model/schema';
 import { CyberInput } from '@/features/ciphers/ui/cyber-input';
+import { merge } from '@/features/ciphers/lib/helpers';
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/shared/ui/form';
 
-export const BaconForm = () => {
+export const BaconForm = ({
+  shareValues,
+  result,
+}: {
+  shareValues?: TBaconFormState;
+  result?: string;
+}) => {
+  const defaultValues = {
+    text: '',
+    letter1: 'a',
+    letter2: 'b',
+    action: 'encode',
+  };
+  const values = shareValues ? merge(defaultValues, shareValues) : defaultValues;
+
   const formHook = useCipherForm({
     schema: BaconFormScheme,
-    defaultValues: { text: '', letter1: 'a', letter2: 'b', action: 'encode' },
+    defaultValues: values,
     processFunction: bacon,
+    defaultResult: result,
   });
+
   return (
     <CipherForm
       formHook={formHook}

@@ -11,12 +11,14 @@ export function useCipherForm({
   schema,
   processFunction,
   defaultValues,
+  defaultResult,
 }: {
   schema: ZodSchema;
   processFunction: (args: z.infer<typeof schema>) => string;
   defaultValues: DefaultValues<FieldValues>;
+  defaultResult?: string;
 }) {
-  const [result, setResult] = useState<string>('');
+  const [result, setResult] = useState<string>(defaultResult || '');
   const [activeTab, setActiveTab] = useState<'encode' | 'decode'>('encode');
 
   type TFormState = z.infer<typeof schema>;

@@ -60,24 +60,15 @@ describe('Vigenere Cipher', () => {
     ).toBe('Привіт світ!');
   });
 
-  it('edge cases: should throw error if text or alphabet is empty', () => {
+  it('edge cases: should throw error if alphabet is empty', () => {
     expect(() =>
       vigenere({
-        text: '     ',
+        text: '',
         key: 'hello',
-        alphabet: 'abcdefghijklmnopqrstuvwxyz',
+        alphabet: ' ',
         action: 'decode',
       }),
-    ).toThrow('Invalid input: text, key, and alphabet must be non-empty.');
-
-    expect(() =>
-      vigenere({
-        text: '   ',
-        key: 'key',
-        alphabet: 'abcdefghijklmnopqrstuvwxyz',
-        action: 'encode',
-      }),
-    ).toThrow('Invalid input: text, key, and alphabet must be non-empty.');
+    ).toThrow('Invalid input: key and alphabet must be non-empty.');
 
     expect(() =>
       vigenere({
@@ -86,7 +77,7 @@ describe('Vigenere Cipher', () => {
         alphabet: '',
         action: 'encode',
       }),
-    ).toThrow('Invalid input: text, key, and alphabet must be non-empty.');
+    ).toThrow('Invalid input: key and alphabet must be non-empty.');
   });
 
   it('edge cases: should throw error if arguments with invalid types provided.', () => {

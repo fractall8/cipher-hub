@@ -7,6 +7,8 @@ import { CyberTextarea } from '@/features/ciphers/ui';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/shared/ui/form';
 import { CopyButton } from '@/shared/ui/copy-button';
 import { Tabs, TabsList, TabsTrigger } from '@/shared/ui/tabs';
+import { ShareButton } from '@/features/share/ui/share-button';
+import { useCiphersStore } from '../model/provider';
 
 export const CipherForm = ({
   formHook,
@@ -24,6 +26,8 @@ export const CipherForm = ({
     handleDebouncedActionSubmit,
     onSubmit,
   } = formHook;
+
+  const { selectedCipher } = useCiphersStore((state) => state);
 
   return (
     <div className="flex flex-col gap-4">
@@ -99,6 +103,9 @@ export const CipherForm = ({
           <CopyButton className="absolute top-1 right-1" value={result} />
         </div>
       </div>
+      {selectedCipher && (
+        <ShareButton cipherId={selectedCipher.id} data={form.getValues()} result={result} />
+      )}
     </div>
   );
 };

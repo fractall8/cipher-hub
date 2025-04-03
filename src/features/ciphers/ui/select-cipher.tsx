@@ -6,11 +6,12 @@ import { Dialog, DialogHeader } from '@/shared/ui/dialog';
 import { DialogContent, DialogTitle, DialogTrigger } from '@/shared/ui/dialog';
 import { CIPHERS } from '@/shared/constants';
 import { Settings } from 'lucide-react';
-import { ScrollArea } from '@radix-ui/react-scroll-area';
+import { ScrollArea } from '@/shared/ui/scroll-area';
 
 export const SelectCipher = () => {
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
   const { selectCipher } = useCiphersStore((state) => state);
+
   return (
     <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <DialogTrigger asChild>
@@ -24,7 +25,7 @@ export const SelectCipher = () => {
             Choose Encryption Method
           </DialogTitle>
         </DialogHeader>
-        <ScrollArea className="h-[400px] w-full pr-4">
+        <ScrollArea className="h-[25rem] w-full pr-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {CIPHERS.map((cipher) => (
               <button

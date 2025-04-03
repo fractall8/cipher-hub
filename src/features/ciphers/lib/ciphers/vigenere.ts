@@ -13,7 +13,7 @@ export function vigenere({
     throw new Error('Invalid input: text, key, and alphabet must be strings.');
   }
   if (!key.trim() || !alphabet.trim()) {
-    throw new Error('Invalid input: text, key, and alphabet must be non-empty.');
+    throw new Error('Invalid input: key and alphabet must be non-empty.');
   }
 
   let result = '';

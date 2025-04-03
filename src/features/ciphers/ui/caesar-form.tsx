@@ -2,20 +2,31 @@ import { Minus, Plus } from 'lucide-react';
 import { CipherForm } from '@/features/ciphers/ui/cipher-form';
 import { useCipherForm } from '@/features/ciphers/lib/hooks/useCipherForm';
 import { caesar } from '@/features/ciphers/lib';
-import { CaesarFormSchema } from '@/features/ciphers/model/schema';
+import { CaesarFormSchema, TCaesarFormState } from '@/features/ciphers/model/schema';
 import { CyberInput } from '@/features/ciphers/ui';
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/shared/ui/form';
+import { merge } from '@/features/ciphers/lib/helpers';
 
-export const CaesarForm = () => {
+export const CaesarForm = ({
+  shareValues,
+  result,
+}: {
+  shareValues?: TCaesarFormState;
+  result?: string;
+}) => {
+  const defaultValues = {
+    text: '',
+    shift: 7,
+    alphabet: 'abcdefghijklmnopqrstuvwxyz',
+    action: 'encode',
+  };
+  const values = shareValues ? merge(defaultValues, shareValues) : defaultValues;
+
   const formHook = useCipherForm({
     schema: CaesarFormSchema,
-    defaultValues: {
-      text: '',
-      shift: 7,
-      alphabet: 'abcdefghijklmnopqrstuvwxyz',
-      action: 'encode',
-    },
+    defaultValues: values,
     processFunction: caesar,
+    defaultResult: result,
   });
 
   return (

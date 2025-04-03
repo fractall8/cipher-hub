@@ -17,6 +17,8 @@ export const CaesarFormSchema = z.object({
   action: z.enum(['encode', 'decode']),
 });
 
+export type TCaesarFormState = z.infer<typeof CaesarFormSchema>;
+
 export const VigenereFormSchema = z
   .object({
     text: z.string(),
@@ -45,6 +47,8 @@ export const VigenereFormSchema = z
     }
   });
 
+export type TVigenereFormState = z.infer<typeof VigenereFormSchema>;
+
 export const BaconFormScheme = z
   .object({
     text: z.string(),
@@ -68,11 +72,15 @@ export const BaconFormScheme = z
     }
   });
 
+export type TBaconFormState = z.infer<typeof BaconFormScheme>;
+
 // same scheme for base64 and base32
 export const BaseFormScheme = z.object({
   text: z.string(),
   action: z.enum(['encode', 'decode']),
 });
+
+export type TBaseFormState = z.infer<typeof BaseFormScheme>;
 
 export type TCipherIds = (typeof CIPHERS)[number]['id'];
 
@@ -83,3 +91,13 @@ export type TCipher = {
   description: string;
   about: string;
 };
+
+type TShareContentMap = {
+  caesar: TCaesarFormState;
+  vigenere: TVigenereFormState;
+  bacon: TBaconFormState;
+  base64: TBaseFormState;
+  base32: TBaseFormState;
+};
+
+export type TShareContent<K extends TCipherIds> = TShareContentMap[K];
