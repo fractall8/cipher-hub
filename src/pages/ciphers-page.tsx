@@ -3,19 +3,11 @@
 import { Shield, Terminal } from 'lucide-react';
 import { useCiphersStore } from '@/features/ciphers/model/provider';
 import { CaesarForm, VigenereForm, BaconForm, Base64Form, Base32Form } from '@/features/ciphers';
-import type { TShareContent, TCipherIds } from '@/features/ciphers/model/schema';
+import type { TShareContent, TCipherIds, ShareDataProp } from '@/features/ciphers/model/schema';
 import { SelectCipher } from '@/features/ciphers';
 import { CIPHERS } from '@/shared/constants';
 
-export function CiphersPage<T extends TCipherIds>({
-  shareData,
-}: {
-  shareData?: {
-    cipherId: T;
-    content: TShareContent<T>;
-    result?: string;
-  };
-}) {
+export function CiphersPage<T extends TCipherIds>({ shareData }: { shareData?: ShareDataProp<T> }) {
   const { selectedCipher, selectCipher } = useCiphersStore((state) => state);
 
   if (shareData && shareData.cipherId && !selectedCipher) {
@@ -23,14 +15,7 @@ export function CiphersPage<T extends TCipherIds>({
     if (defaultCipher) selectCipher(defaultCipher);
   }
 
-  function renderCipherForm<T extends TCipherIds>(
-    id: string,
-    shareData?: {
-      cipherId: T;
-      content: TShareContent<T>;
-      result?: string;
-    },
-  ) {
+  function renderCipherForm<T extends TCipherIds>(id: string, shareData?: ShareDataProp<T>) {
     switch (id) {
       case 'caesar':
         return shareData?.cipherId === 'caesar' ? (

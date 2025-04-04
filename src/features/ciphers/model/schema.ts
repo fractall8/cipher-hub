@@ -101,3 +101,9 @@ type TShareContentMap = {
 };
 
 export type TShareContent<K extends TCipherIds> = TShareContentMap[K];
+
+export type ShareDataProp<T extends TCipherIds> = {
+  cipherId: T;
+  content: TShareContent<T>;
+  result?: string;
+} | null;

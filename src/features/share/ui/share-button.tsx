@@ -1,34 +1,35 @@
 'use client';
 
-import { CyberButton, CyberInput } from '@/features/ciphers/ui';
+import { CyberButton } from '@/features/ciphers/ui';
 import { Share2 } from 'lucide-react';
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import { createShareRecord } from '@/features/share/api';
-import { TShareContent, TCipherIds } from '@/features/ciphers/model/schema';
+import { TCipherIds, ShareDataProp } from '@/features/ciphers/model/schema';
 import { Dialog, DialogContent, DialogTitle, DialogHeader } from '@/shared/ui/dialog';
 import { CLIENT_URL } from '@/shared/constants';
 import { CopyButton } from '@/shared/ui/copy-button';
 
 export const ShareButton = <T extends TCipherIds>({
-  cipherId,
-  data,
-  result,
+  shareData,
   ...props
 }: {
-  cipherId: T;
-  data: TShareContent<T>;
-  result?: string;
+  shareData: NonNullable<ShareDataProp<T>>;
   props?: React.ComponentProps<'button'>;
 }) => {
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [shareRecordId, setShareRecordId] = useState<string | undefined>();
 
+  // if share data changed generate new share link
+  useEffect(() => {
+    setShareRecordId(undefined);
+  }, [shareData]);
+
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (shareRecordId) return;
 
     setIsLoading(true);
-    const shareData = { cipherId, content: data, result: result };
     const sharedId = await createShareRecord({ data: shareData });
 
     if (sharedId) {
@@ -40,7 +41,7 @@ export const ShareButton = <T extends TCipherIds>({
   return (
     <form onSubmit={onSubmit}>
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="sm:max-w-[600px] bg-background border-primary">
+        <DialogContent className="sm:max-w-[37.5rem] max-sm:w-full bg-background border-primary">
           <DialogHeader>
             <DialogTitle className="text-2xl font-bold text-primary">
               Here your's share link:
@@ -49,14 +50,15 @@ export const ShareButton = <T extends TCipherIds>({
           {isLoading ? (
             <p>Loading...</p>
           ) : (
-            <div className="relative">
+            <div className="flex items-center gap-2">
               {shareRecordId ? (
                 <>
-                  <CyberInput readOnly value={`${CLIENT_URL}/ciphers/share/${shareRecordId}`} />
-                  <CopyButton
-                    className="absolute top-1 right-0"
-                    value={`${CLIENT_URL}/ciphers/share/${shareRecordId}`}
-                  />
+                  <a
+                    className="hover:underline break-all text-wrap"
+                    href={`${CLIENT_URL}/ciphers/share/${shareRecordId}`}
+                    target="_blank"
+                  >{`${CLIENT_URL}/ciphers/share/${shareRecordId}`}</a>
+                  <CopyButton value={`${CLIENT_URL}/ciphers/share/${shareRecordId}`} />
                 </>
               ) : (
                 <p className="text-red-400">

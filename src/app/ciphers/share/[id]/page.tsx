@@ -1,9 +1,10 @@
-import { getShareRecordById } from '@/features/share/api';
-import { CiphersPage } from '@/pages/ciphers-page';
+import { ClientWrapper } from '@/pages/client-wrapper';
+import { CLIENT_URL } from '@/shared/constants';
 
 export default async function ShareIdPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const shareRecord = await getShareRecordById(id);
+  const response = await fetch(`${CLIENT_URL}/api/share/${id}`, { method: 'GET' });
+  const shareRecord = await response.json();
 
-  return <CiphersPage shareData={shareRecord} />;
+  return <ClientWrapper shareData={shareRecord} />;
 }

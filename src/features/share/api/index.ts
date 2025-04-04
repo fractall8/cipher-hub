@@ -2,6 +2,7 @@
 
 import { TShareContent, TCipherIds } from '@/features/ciphers/model/schema';
 import { CLIENT_URL } from '@/shared/constants';
+import { ShareDataSchema } from '../model/schema';
 
 export async function createShareRecord({
   data,
@@ -9,6 +10,12 @@ export async function createShareRecord({
   data: { cipherId: TCipherIds; content: TShareContent<TCipherIds>; result?: string };
 }) {
   try {
+    const validationResult = ShareDataSchema.safeParse(data);
+
+    if (!validationResult.success) {
+      throw new Error(`Invalid share data: ${validationResult.error}`);
+    }
+
     const response = await fetch(`${CLIENT_URL}/api/share`, {
       method: 'POST',
       headers: {
@@ -25,24 +32,6 @@ export async function createShareRecord({
     return shareRecord.id;
   } catch (e) {
     console.error('Error creating share record:', e);
-    return null;
-  }
-}
-
-export async function getShareRecordById(
-  id: string,
-): Promise<{ cipherId: TCipherIds; content: TShareContent<TCipherIds>; result: string } | null> {
-  try {
-    const response = await fetch(`${CLIENT_URL}/api/share/${id}`, { method: 'GET' });
-
-    if (!response.ok) {
-      throw new Error(`${response.status} ${response.statusText}`);
-    }
-
-    const shareRecord = await response.json();
-    return shareRecord;
-  } catch (e) {
-    console.log('Failed to fetch share record by id.', e);
     return null;
   }
 }

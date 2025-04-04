@@ -96,7 +96,7 @@ export const CipherForm = ({
         <div className="relative">
           <CyberTextarea
             value={result}
-            className="resize-none min-h-32 p-2"
+            className="resize-none min-h-32 p-2 pr-4"
             readOnly
             placeholder="Your result will appear here..."
           />
@@ -104,7 +104,9 @@ export const CipherForm = ({
         </div>
       </div>
       {selectedCipher && (
-        <ShareButton cipherId={selectedCipher.id} data={form.getValues()} result={result} />
+        <ShareButton
+          shareData={{ cipherId: selectedCipher.id, content: form.getValues(), result }}
+        />
       )}
     </div>
   );
