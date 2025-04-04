@@ -19,7 +19,7 @@ export function useCipherForm({
   defaultResult?: string;
 }) {
   const [result, setResult] = useState<string>(defaultResult || '');
-  const [activeTab, setActiveTab] = useState<'encode' | 'decode'>('encode');
+  const [activeTab, setActiveTab] = useState<'encode' | 'decode'>(defaultValues.action);
 
   type TFormState = z.infer<typeof schema>;
 

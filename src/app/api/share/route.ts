@@ -16,14 +16,3 @@ export async function POST(request: NextRequest) {
     return new NextResponse(`Internal server error: ${e}`, { status: 500 });
   }
 }
-
-// test only
-export async function GET() {
-  try {
-    const share = await prisma.share.findMany();
-
-    return NextResponse.json(share, { status: 200 });
-  } catch (e) {
-    return new NextResponse(`Internal server error: ${e}`, { status: 500 });
-  }
-}
