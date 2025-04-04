@@ -133,6 +133,9 @@
   .container {
     @apply max-w-5xl mx-auto px-4;
   }
+  .text-article {
+    @apply text-lg text-foreground/80;
+  }
 }
 
 .cyber-grid {
