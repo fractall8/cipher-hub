@@ -1,6 +1,6 @@
-import { ClientWrapper } from '@/pages/client-wrapper';
-import { CLIENT_URL } from '@/shared/constants';
 import { notFound } from 'next/navigation';
+import { ClientWrapper } from '@/app/ciphers/ui/client-wrapper';
+import { CLIENT_URL } from '@/shared/constants';
 
 export default async function ShareIdPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
