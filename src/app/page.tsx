@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export default function Home() {
   return (
-    <div className="flex flex-col w-full h-screen items-center justify-center space-y-6 text-center">
+    <div className="flex flex-col w-full h-screen items-center justify-center space-y-6 text-center px-4">
       <div className="flex items-center space-x-2">
         <KeyRound className="h-12 w-12 text-primary animate-pulse" />
         <h1 className="text-4xl font-bold tracking-tight bg-gradient-to-r from-primary to-primary/50 bg-clip-text text-transparent">

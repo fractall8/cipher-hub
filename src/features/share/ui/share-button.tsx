@@ -8,6 +8,7 @@ import { TCipherIds, ShareDataProp } from '@/features/ciphers/model/schema';
 import { Dialog, DialogContent, DialogTitle, DialogHeader } from '@/shared/ui/dialog';
 import { CLIENT_URL } from '@/shared/constants';
 import { CopyButton } from '@/shared/ui/copy-button';
+import { useDialog } from '@/shared/lib/hooks';
 
 export const ShareButton = <T extends TCipherIds>({
   shareData,
@@ -16,7 +17,7 @@ export const ShareButton = <T extends TCipherIds>({
   shareData: NonNullable<ShareDataProp<T>>;
   props?: React.ComponentProps<'button'>;
 }) => {
-  const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
+  const { isOpen, setIsOpen, open } = useDialog();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [shareRecordId, setShareRecordId] = useState<string | undefined>();
 
@@ -40,10 +41,10 @@ export const ShareButton = <T extends TCipherIds>({
   }
   return (
     <form onSubmit={onSubmit}>
-      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+      <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent className="sm:max-w-[37.5rem] max-sm:w-full bg-background border-primary">
           <DialogHeader>
-            <DialogTitle className="text-2xl font-bold text-primary">
+            <DialogTitle className="md:text-2xl text-xl font-bold text-primary">
               Here your's share link:
             </DialogTitle>
           </DialogHeader>
@@ -70,9 +71,7 @@ export const ShareButton = <T extends TCipherIds>({
         </DialogContent>
       </Dialog>
       <CyberButton
-        onClick={() => {
-          setIsDialogOpen(true);
-        }}
+        onClick={() => open()}
         type="submit"
         className="flex gap-2 items-center self-center"
         {...props}

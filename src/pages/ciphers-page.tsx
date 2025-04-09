@@ -72,10 +72,10 @@ export function CiphersPage<T extends TCipherIds>({ shareData }: { shareData?: S
       <div className="flex flex-col mb-6 gap-4 items-center justify-center w-full">
         {selectedCipher ? (
           <>
-            <h2 className="text-5xl font-bold tracking-tighter text-primary">
+            <h2 className="md:text-5xl text-4xl font-bold tracking-tighter text-primary">
               {selectedCipher.name}
             </h2>
-            <p className="text-xl text-foreground/80 max-w-2xl text-center">
+            <p className="md:text-xl text-lg text-foreground/80 max-w-2xl text-center">
               {selectedCipher.about}
             </p>
           </>
@@ -86,17 +86,17 @@ export function CiphersPage<T extends TCipherIds>({ shareData }: { shareData?: S
         )}
       </div>
 
-      <div className="grid md:grid-cols-2 gap-8">
+      <div className="grid lg:grid-cols-2 gap-8">
         <div className="cyber-border cyber-background neon-glow bg-secondary/50 p-6">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-4">
               <Shield className="w-6 h-6 text-primary" />
-              <h2 className="text-2xl font-semibold">Current Cipher</h2>
+              <h2 className="md:text-2xl text-xl font-semibold">Current Cipher</h2>
             </div>
             <SelectCipher />
           </div>
           {selectedCipher ? (
-            <div className="cyber-border cyber-background p-6 space-y-4">
+            <div className="cyber-border cyber-background md:p-6 p-4 space-y-4">
               <div className="flex items-center gap-4">
                 <div className="text-primary">{selectedCipher.icon}</div>
                 <div>
@@ -120,7 +120,7 @@ export function CiphersPage<T extends TCipherIds>({ shareData }: { shareData?: S
         <div className="cyber-border cyber-background neon-glow bg-secondary/50 p-6">
           <div className="flex items-center gap-4 mb-6">
             <Terminal className="w-6 h-6 text-primary" />
-            <h2 className="text-2xl font-semibold">Operation Console</h2>
+            <h2 className="md:text-2xl text-xl font-semibold">Operation Console</h2>
           </div>
 
           <div className="flex flex-col gap-2">

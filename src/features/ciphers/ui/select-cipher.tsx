@@ -1,19 +1,20 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { useCiphersStore } from '@/features/ciphers/model/provider';
 import { Dialog, DialogHeader } from '@/shared/ui/dialog';
 import { DialogContent, DialogTitle, DialogTrigger } from '@/shared/ui/dialog';
 import { CIPHERS } from '@/shared/constants';
 import { Settings } from 'lucide-react';
 import { ScrollArea } from '@/shared/ui/scroll-area';
+import { useDialog } from '@/shared/lib/hooks';
 
 export const SelectCipher = () => {
-  const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
+  const { isOpen, setIsOpen, close } = useDialog();
   const { selectCipher } = useCiphersStore((state) => state);
 
   return (
-    <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <button className="cyber-button p-2 hover:bg-primary/90 cursor-pointer">
           <Settings className="w-5 h-5" />
@@ -21,7 +22,7 @@ export const SelectCipher = () => {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[600px] bg-background border-primary">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold text-primary">
+          <DialogTitle className="md:text-2xl text-xl pt-2 font-bold text-primary">
             Choose Encryption Method
           </DialogTitle>
         </DialogHeader>
@@ -32,7 +33,7 @@ export const SelectCipher = () => {
                 key={cipher.id}
                 onClick={() => {
                   selectCipher(cipher);
-                  setIsDialogOpen(false);
+                  close();
                 }}
                 className="cyber-border cyber-background p-4 hover:cursor-pointer hover:bg-primary/10 transition-colors"
               >
