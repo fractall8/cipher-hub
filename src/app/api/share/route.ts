@@ -6,6 +6,7 @@ export async function POST(request: NextRequest) {
     const { cipherId, content, result } = await request.json();
 
     const now = new Date();
+
     const expireAt = now.getTime() + 7 * 24 * 60 * 60 * 1000; // + 1 week
 
     const share = await prisma.share.create({

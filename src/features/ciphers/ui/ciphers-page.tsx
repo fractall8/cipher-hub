@@ -80,7 +80,7 @@ export function CiphersPage<T extends TCipherIds>({ shareData }: { shareData?: S
             </p>
           </>
         ) : (
-          <h2 className="text-5xl font-bold tracking-tighter text-primary">
+          <h2 className="md:text-5xl text-4xl font-bold tracking-tighter text-primary">
             Select any cipher and try to use it!
           </h2>
         )}
