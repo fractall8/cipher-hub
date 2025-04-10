@@ -16,7 +16,7 @@ const colors = {
 };
 
 export default async function Image() {
-  const InterBold = await readFile(join(process.cwd(), 'assets/InterBold.ttf'));
+  const InterBold = await readFile(join(process.cwd(), 'public/InterBold.ttf'));
 
   return new ImageResponse(
     (

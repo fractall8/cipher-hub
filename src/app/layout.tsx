@@ -14,6 +14,9 @@ export const metadata: Metadata = {
     url: CLIENT_URL,
     siteName: 'Cipher Hub',
   },
+  icons: {
+    icon: '/favicon.svg',
+  },
 };
 
 export default function RootLayout({
