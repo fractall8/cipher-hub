@@ -2,7 +2,7 @@
 
 import { CyberButton } from '@/features/ciphers/ui';
 import { Share2 } from 'lucide-react';
-import React, { FormEvent, useEffect, useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import { createShareRecord } from '@/features/share/api';
 import { TCipherIds, ShareDataProp } from '@/features/ciphers/model/schema';
 import { Dialog, DialogContent, DialogTitle, DialogHeader } from '@/shared/ui/dialog';
@@ -22,9 +22,11 @@ export const ShareButton = <T extends TCipherIds>({
   const [shareRecordId, setShareRecordId] = useState<string | undefined>();
 
   // if share data changed generate new share link
-  useEffect(() => {
+  const [prevShareData, setPrevShareData] = useState(shareData);
+  if (prevShareData !== shareData) {
+    setPrevShareData(shareData);
     setShareRecordId(undefined);
-  }, [shareData]);
+  }
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -42,10 +44,10 @@ export const ShareButton = <T extends TCipherIds>({
   return (
     <form onSubmit={onSubmit}>
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="sm:max-w-[37.5rem] max-sm:w-full bg-background border-primary">
+        <DialogContent className="cyber-border cyber-background rounded-none border-transparent max-sm:w-full sm:max-w-[37.5rem]">
           <DialogHeader>
-            <DialogTitle className="md:text-2xl text-xl font-bold text-primary">
-              Here your's share link:
+            <DialogTitle className="text-primary-strong text-xl font-bold md:text-2xl">
+              Here your&apos;s share link:
             </DialogTitle>
           </DialogHeader>
           {isLoading ? (
@@ -62,7 +64,7 @@ export const ShareButton = <T extends TCipherIds>({
                   <CopyButton value={`${CLIENT_URL}/ciphers/share/${shareRecordId}`} />
                 </>
               ) : (
-                <p className="text-red-400">
+                <p className="text-destructive">
                   Oops! Failed to generate share link! Try again later.
                 </p>
               )}

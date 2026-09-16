@@ -68,59 +68,59 @@ export function CiphersPage<T extends TCipherIds>({ shareData }: { shareData?: S
   }
 
   return (
-    <div className="container">
-      <div className="flex flex-col mb-6 gap-4 items-center justify-center w-full">
+    <div className="page-shell">
+      <div className="mb-8 flex w-full flex-col items-center justify-center gap-4 text-center">
         {selectedCipher ? (
           <>
-            <h2 className="md:text-5xl text-4xl font-bold tracking-tighter text-primary">
+            <h2 className="text-display text-primary-strong text-4xl md:text-5xl">
               {selectedCipher.name}
             </h2>
-            <p className="md:text-xl text-lg text-foreground/80 max-w-2xl text-center">
+            <p className="text-foreground/80 max-w-2xl text-lg text-balance md:text-xl">
               {selectedCipher.about}
             </p>
           </>
         ) : (
-          <h2 className="md:text-5xl text-4xl font-bold tracking-tighter text-primary">
+          <h2 className="text-display text-primary-strong max-w-3xl text-4xl md:text-5xl">
             Select any cipher and try to use it!
           </h2>
         )}
       </div>
 
-      <div className="grid lg:grid-cols-2 gap-8">
-        <div className="cyber-border cyber-background neon-glow bg-secondary/50 p-6">
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-4">
-              <Shield className="w-6 h-6 text-primary" />
-              <h2 className="md:text-2xl text-xl font-semibold">Current Cipher</h2>
+      <div className="grid items-start gap-8 lg:grid-cols-2">
+        <div className="cyber-border cyber-background neon-glow p-6">
+          <div className="mb-6 flex items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <Shield className="text-primary-strong h-6 w-6 shrink-0" />
+              <h2 className="text-xl font-semibold md:text-2xl">Current Cipher</h2>
             </div>
             <SelectCipher />
           </div>
           {selectedCipher ? (
-            <div className="cyber-border cyber-background md:p-6 p-4 space-y-4">
+            <div className="cyber-border cyber-background-raised space-y-4 p-4 md:p-6">
               <div className="flex items-center gap-4">
-                <div className="text-primary">{selectedCipher.icon}</div>
+                <div className="text-primary-strong shrink-0">{selectedCipher.icon}</div>
                 <div>
                   <h3 className="text-xl font-semibold">{selectedCipher.name}</h3>
-                  <p className="text-sm text-foreground/70">{selectedCipher.description}</p>
+                  <p className="text-foreground/70 text-sm">{selectedCipher.description}</p>
                 </div>
               </div>
             </div>
           ) : (
-            <div className="cyber-border cyber-background p-6 flex flex-col items-center justify-center min-h-[200px] text-center space-y-4">
-              <Shield className="w-12 h-12 text-primary/50" />
+            <div className="cyber-border cyber-background-raised flex min-h-[200px] flex-col items-center justify-center space-y-4 p-6 text-center">
+              <Shield className="text-primary-strong/40 h-12 w-12" />
               <div>
                 <p className="text-lg font-medium">No Cipher Selected</p>
-                <p className="text-sm text-foreground/70">
+                <p className="text-foreground/70 text-sm">
                   Click the settings icon to choose an encryption method
                 </p>
               </div>
             </div>
           )}
         </div>
-        <div className="cyber-border cyber-background neon-glow bg-secondary/50 p-6">
-          <div className="flex items-center gap-4 mb-6">
-            <Terminal className="w-6 h-6 text-primary" />
-            <h2 className="md:text-2xl text-xl font-semibold">Operation Console</h2>
+        <div className="cyber-border cyber-background neon-glow p-6">
+          <div className="mb-6 flex items-center gap-3">
+            <Terminal className="text-primary-strong h-6 w-6 shrink-0" />
+            <h2 className="text-xl font-semibold md:text-2xl">Operation Console</h2>
           </div>
 
           <div className="flex flex-col gap-2">

@@ -47,7 +47,7 @@ export const CipherForm = ({
             }}
             className="space-y-6"
           >
-            <TabsList className="cyber-border w-full bg-background/40">
+            <TabsList className="cyber-border cyber-background h-auto w-full rounded-none p-1">
               <TabsTrigger
                 value="encode"
                 className="flex-1 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"

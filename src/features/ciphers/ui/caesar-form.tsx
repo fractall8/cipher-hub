@@ -42,6 +42,9 @@ export const CaesarForm = ({
                 <FormLabel>Shift</FormLabel>
                 <div className="flex items-center gap-2">
                   <button
+                    type="button"
+                    aria-label="Decrease shift"
+                    className="text-primary-strong hover:bg-primary/15 cyber-border cyber-sm shrink-0 p-1.5 transition-colors"
                     onClick={() =>
                       formHook.form.setValue(
                         'shift',
@@ -51,7 +54,7 @@ export const CaesarForm = ({
                       )
                     }
                   >
-                    <Minus className="text-primary" />
+                    <Minus className="h-4 w-4" />
                   </button>
                   <FormControl>
                     <CyberInput
@@ -75,7 +78,9 @@ export const CaesarForm = ({
                     />
                   </FormControl>
                   <button
-                    className="text-primary"
+                    type="button"
+                    aria-label="Increase shift"
+                    className="text-primary-strong hover:bg-primary/15 cyber-border cyber-sm shrink-0 p-1.5 transition-colors"
                     onClick={() =>
                       formHook.form.setValue(
                         'shift',
@@ -85,7 +90,7 @@ export const CaesarForm = ({
                       )
                     }
                   >
-                    <Plus />
+                    <Plus className="h-4 w-4" />
                   </button>
                 </div>
                 <FormMessage />

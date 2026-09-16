@@ -7,7 +7,10 @@ export const CyberTextarea = ({ className, ...props }: React.ComponentProps<'tex
     <Textarea
       {...props}
       className={cn([
-        'w-full h-32 bg-white cyber-border resize-none p-3 focus:outline-none focus:ring-2 focus:ring-primary',
+        // a coloured shadcn border would paint over the notched rim
+        'cyber-border rounded-none border-transparent shadow-none',
+        'focus-visible:border-transparent focus-visible:ring-0',
+        'h-32 w-full resize-none p-3 outline-none',
         className,
       ])}
     />

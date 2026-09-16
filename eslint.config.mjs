@@ -1,36 +1,21 @@
 import js from '@eslint/js';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
-import eslintReact from 'eslint-plugin-react';
-import eslintReactHooks from 'eslint-plugin-react-hooks';
-import eslintReactRefresh from 'eslint-plugin-react-refresh';
+import nextCoreWebVitals from 'eslint-config-next/core-web-vitals';
+import nextTypescript from 'eslint-config-next/typescript';
 import prettierPlugin from 'eslint-plugin-prettier';
 import eslintConfigPrettier from 'eslint-config-prettier';
 
-/** @type {import('eslint').Linter.ESLintConfig[]} */
+/** @type {import('eslint').Linter.Config[]} */
 export default tseslint.config(
   {
-    plugins: {
-      '@typescript-eslint': tseslint.plugin,
-      react: eslintReact,
-      'react-hooks': eslintReactHooks,
-      'react-refresh': eslintReactRefresh,
-      prettier: prettierPlugin,
-    },
-  },
-  {
-    ignores: [
-      'dist',
-      'dist-ssr',
-      'node_modules',
-      'coverage',
-      'eslint.config.js',
-      '*.config.*',
-      '*.local',
-    ],
+    ignores: ['.next', 'out', 'node_modules', 'coverage', 'next-env.d.ts', '*.config.*', '*.local'],
   },
   js.configs.recommended,
-  ...tseslint.configs.recommended,
+  // Registers the react, react-hooks, jsx-a11y, import and @next/next plugins
+  // and enables Next's recommended + Core Web Vitals rules.
+  ...nextCoreWebVitals,
+  ...nextTypescript,
   {
     languageOptions: {
       globals: {
@@ -38,17 +23,16 @@ export default tseslint.config(
         ...globals.node,
         ...globals.es2020,
       },
-      parserOptions: {
-        project: ['tsconfig.json', 'tsconfig.node.json', 'tsconfig.app.json'],
-      },
     },
   },
   {
     files: ['**/*.{ts,tsx}'],
+    plugins: {
+      prettier: prettierPlugin,
+    },
     rules: {
       ...prettierPlugin.configs.recommended.rules,
       ...eslintConfigPrettier.rules,
-      'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
       'prefer-const': 'error',
       'react/jsx-curly-brace-presence': ['warn', { props: 'never', children: 'never' }],
       'react/self-closing-comp': ['error', { component: true, html: true }],
@@ -57,10 +41,6 @@ export default tseslint.config(
       'no-console': 'warn',
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
-      // fix for issue:
-      // TypeError: Error while loading rule '@typescript-eslint/no-unused-expressions': Cannot read properties of undefined (reading 'allowShortCircuit')
-      // Occurred while linting /home/ext4cats/Projects/tseslint-8.14.0-bug/index.js
-      // delete if unnecessary
       '@typescript-eslint/no-unused-expressions': [
         'error',
         {

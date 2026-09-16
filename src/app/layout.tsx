@@ -3,7 +3,11 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import { CLIENT_URL } from '@/shared/constants';
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+});
 
 export const metadata: Metadata = {
   title: 'Cipher Hub',
@@ -26,10 +30,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} cyber-grid antialiased`}>
-        <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-          {children}
-        </main>
+      <body className={`${inter.variable} cyber-grid antialiased`}>
+        <main className="flex min-h-dvh flex-col">{children}</main>
       </body>
     </html>
   );

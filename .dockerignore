@@ -6,3 +6,7 @@ npm-debug.log
 README.md
 .next
 .git
+
+# secrets: builds take NEXT_PUBLIC_CLIENT_URL via build arg, everything else at runtime
+.env
+.env.*

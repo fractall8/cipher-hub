@@ -1,7 +1,7 @@
 # syntax=docker.io/docker/dockerfile:1
 # copied from https://github.com/vercel/next.js/tree/canary/examples/with-docker
 
-FROM node:18-alpine AS base
+FROM node:22-alpine AS base
 
 # Install dependencies only when needed
 FROM base AS deps
@@ -35,6 +35,11 @@ COPY . .
 # Learn more here: https://nextjs.org/telemetry
 # Uncomment the following line in case you want to disable telemetry during the build.
 ENV NEXT_TELEMETRY_DISABLED=1
+
+# NEXT_PUBLIC_* is inlined into the client bundle at build time, so it has to be
+# set here — supplying it only at runtime leaves it empty in the browser.
+ARG NEXT_PUBLIC_CLIENT_URL=http://localhost:3000
+ENV NEXT_PUBLIC_CLIENT_URL=${NEXT_PUBLIC_CLIENT_URL}
 
 RUN \
   if [ -f yarn.lock ]; then yarn run build; \

@@ -16,13 +16,17 @@ export const SelectCipher = () => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <button className="cyber-button p-2 hover:bg-primary/90 cursor-pointer">
-          <Settings className="w-5 h-5" />
+        <button
+          type="button"
+          className="cyber-button cyber-sm cursor-pointer p-2"
+          aria-label="Choose encryption method"
+        >
+          <Settings className="h-5 w-5" />
         </button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[600px] bg-background border-primary">
+      <DialogContent className="cyber-border cyber-background rounded-none border-transparent sm:max-w-[600px]">
         <DialogHeader>
-          <DialogTitle className="md:text-2xl text-xl pt-2 font-bold text-primary">
+          <DialogTitle className="text-primary-strong pt-2 text-xl font-bold md:text-2xl">
             Choose Encryption Method
           </DialogTitle>
         </DialogHeader>
@@ -35,13 +39,14 @@ export const SelectCipher = () => {
                   selectCipher(cipher);
                   close();
                 }}
-                className="cyber-border cyber-background p-4 hover:cursor-pointer hover:bg-primary/10 transition-colors"
+                type="button"
+                className="cyber-border cyber-background cyber-interactive p-4 text-left"
               >
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="text-primary">{cipher.icon}</div>
+                <div className="mb-2 flex items-center gap-3">
+                  <div className="text-primary-strong shrink-0">{cipher.icon}</div>
                   <h3 className="font-semibold">{cipher.name}</h3>
                 </div>
-                <p className="text-sm text-foreground/70">{cipher.description}</p>
+                <p className="text-foreground/70 text-sm">{cipher.description}</p>
               </button>
             ))}
           </div>

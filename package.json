@@ -2,12 +2,15 @@
   "name": "cipher-hub",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=20.9.0"
+  },
   "scripts": {
     "dev": "next dev --turbopack",
     "dockerDev": "WATCHPACK_POLLING=true next dev",
     "build": "prisma generate && next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint .",
     "test": "vitest"
   },
   "dependencies": {
@@ -31,16 +34,16 @@
     "zustand": "^5.0.3"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3",
+    "@eslint/js": "^9",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "15.2.3",
+    "eslint-config-next": "16.3.5",
     "eslint-config-prettier": "^10.1.1",
     "eslint-plugin-prettier": "^5.2.4",
-    "eslint-plugin-react-refresh": "^0.4.19",
+    "globals": "^16.4.0",
     "jsdom": "^26.0.0",
     "prisma": "^6.5.0",
     "tailwindcss": "^4.0.15",

@@ -10,8 +10,8 @@ export default function Error({ error, reset }: { error: Error; reset: () => voi
   }, [error]);
 
   return (
-    <div className="w-full h-screen flex flex-col items-center justify-center">
-      <p className="text-red-400 text-3xl font-bold mb-4">Oops! Something went wrong :(</p>
+    <div className="flex flex-1 flex-col items-center justify-center px-4 py-16 text-center">
+      <p className="text-destructive text-3xl font-bold mb-4">Oops! Something went wrong :(</p>
       <span className="text-article mb-2">
         If error persists after pressing the button you can navigate to home or ciphers page.
       </span>

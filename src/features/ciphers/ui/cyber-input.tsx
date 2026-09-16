@@ -5,7 +5,8 @@ export const CyberInput = ({ className, ...props }: React.ComponentProps<'input'
   return (
     <input
       className={cn([
-        'w-full bg-background border-primary cyber-border p-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary',
+        'cyber-border text-foreground placeholder:text-muted-foreground w-full px-3 py-2 text-sm outline-none',
+        'disabled:cursor-not-allowed disabled:opacity-50',
         className,
       ])}
       {...props}
